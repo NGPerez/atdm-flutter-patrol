@@ -1,7 +1,7 @@
 import 'package:flutter_ces/main.dart';
 import 'package:patrol/patrol.dart';
 
-import '../robot/login_robot.dart';
+import '../../robot/login/login_robot.dart';
 
 void main() {
   const testEmail = 'test@tecnoshopper.com';
