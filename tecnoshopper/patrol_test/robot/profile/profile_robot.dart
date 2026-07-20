@@ -8,12 +8,14 @@ class ProfileRobot {
   ProfileRobot(this.$);
 
   Future<void> presionarBotonPerfil() async {
+    await $(Icons.account_circle_outlined).waitUntilVisible();
     await $(Icons.account_circle_outlined).tap();
     await $.pumpAndSettle();
   }
 
   Future<void> verificarPantalla(String titulo) async {
     await $(titulo).waitUntilVisible();
+    expect($(find.text(titulo)), findsAtLeastNWidgets(1));
   }
 
   Future<void> ingresarNombre(String nombre) async {
@@ -51,8 +53,14 @@ class ProfileRobot {
     await $.pumpAndSettle();
   }
 
-  Future<void> verificarGuardadoExitoso(String mensaje) async {
+  Future<void> verificarActualizacionExitosa(String mensaje) async {
     await $(mensaje).waitUntilVisible();
+    expect($(find.text(mensaje)), findsAtLeastNWidgets(1));
+  }
+
+  Future<void> verificarMensajeResultado(String mensaje) async {
+    await $(mensaje).waitUntilVisible();
+    expect($(find.text(mensaje)), findsAtLeastNWidgets(1));
   }
 
   Future<void> volver() async {

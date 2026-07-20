@@ -27,13 +27,23 @@ class RegisterRobot {
 
   Future<void> verificarRegistroExitoso(String mensaje) async {
     await $(mensaje).waitUntilVisible();
+    expect($(find.text(mensaje)), findsAtLeastNWidgets(1));
   }
 
   Future<void> verificarRegistroFallido(String mensaje) async {
     await $(mensaje).waitUntilVisible();
+    expect($(find.text(mensaje)), findsAtLeastNWidgets(1));
+    expect($(find.text('OK')), findsOneWidget);
   }
 
   Future<void> presionarOk() async {
+    expect($(find.text('OK')), findsOneWidget);
     await $('OK').tap();
+    await $.pumpAndSettle();
+  }
+
+  Future<void> verificarPantallaLogin() async {
+    await $(find.byKey(const ValueKey('login_button'))).waitUntilVisible();
+    expect($(find.byKey(const ValueKey('login_button'))), findsOneWidget);
   }
 }

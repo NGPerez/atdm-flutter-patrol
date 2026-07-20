@@ -20,8 +20,13 @@ class CartRobot {
   }
 
   Future<void> verificarConfirmacionDeProductoAgregado(String mensaje) async {
-    await $(mensaje).waitUntilVisible();
-  }
+  await $(mensaje).waitUntilVisible();
+
+  expect(
+    find.text(mensaje),
+    findsAtLeastNWidgets(1),
+  );
+}
 
   Future<void> volverAlCatalogo() async {
     await $(find.byIcon(Icons.arrow_back_ios)).tap();
@@ -39,20 +44,23 @@ class CartRobot {
   }
 
   Future<void> verificarBotonFinalizarCompraDeshabilitado() async {
-  final boton = $.tester.widget<ElevatedButton>(
-    find.widgetWithText(ElevatedButton, 'Finalizar Compra'),
-  );
+    await $('Finalizar Compra').waitUntilVisible();
 
-  expect(boton.onPressed, isNull);
-}
+    final boton = $.tester.widget<ElevatedButton>(
+      find.widgetWithText(ElevatedButton, 'Finalizar Compra'),
+    );
+
+    expect(boton.onPressed, isNull);
+  }
 
   Future<void> presionarBotonSiguiente() async {
     await $('Siguiente').tap();
     await $.pumpAndSettle();
   }
 
-  Future<void> verificarPantalla(String titulo) async {
-    await $(titulo).waitUntilVisible();
+  Future<void> verificarPasoVisible(String paso) async {
+    await $(paso).waitUntilVisible();
+    expect(find.text(paso), findsAtLeastNWidgets(1));
   }
 
   Future<void> ingresarEmail(String email) async {
@@ -140,8 +148,13 @@ class CartRobot {
   }
 
   Future<void> verificarPedidoExitoso(String mensaje) async {
-    await $(mensaje).waitUntilVisible();
-  }
+  await $(mensaje).waitUntilVisible();
+
+  expect(
+    find.text(mensaje),
+    findsAtLeastNWidgets(1),
+  );
+}
 
   Future<void> presionarVolverAlInicio() async {
     await $('Volver al inicio').tap();

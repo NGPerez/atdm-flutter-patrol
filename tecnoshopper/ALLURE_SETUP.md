@@ -28,7 +28,24 @@ O descarga manual desde: https://github.com/allure-framework/allure2/releases
 
 ---
 
-## 2. Ejecutar los Tests
+## 2. Ejecutar Tests y Generar Reportes (Automatizado)
+
+**Recomendado:** Usar el script automatizado que ejecuta todo el proceso:
+
+```powershell
+.\run_tests_and_report.ps1
+```
+
+Este script realiza automáticamente:
+1. Limpia directorios anteriores de Allure
+2. Ejecuta tests de Patrol
+3. Extrae resultados de Allure del dispositivo
+4. Genera reporte de Allure
+5. Genera informe HTML personalizado con organización por suites
+
+### Ejecución Manual (Paso a Paso)
+
+Si prefieres ejecutar cada paso manualmente:
 
 Los tests ya están configurados para emitir resultados Allure automáticamente gracias a `AllurePatrolJUnitRunner`.
 
@@ -60,6 +77,8 @@ mkdir -p allure-results
 
 adb exec-out sh -c 'cd /sdcard/googletest/test_outputfiles && tar cf - allure-results' \
   | tar xf - -C .
+
+  adb pull /sdcard/googletest/test_outputfiles/allure-results ./allure-results
 ```
 
 > Nota: los resultados **se acumulan** entre ejecuciones. Para una corrida limpia,
@@ -82,6 +101,16 @@ allure serve ./allure-results
 
 # Abrir reporte ya generado
 allure open ./allure-report
+```
+
+### Generar Informe Personalizado
+
+```bash
+# Generar informe HTML organizado por suites y tags
+python generate_test_report.py
+
+# Abrir informe
+start test_report.html
 ```
 
 ---
@@ -146,3 +175,41 @@ dependencies {
 - Logs de la aplicación durante la ejecución
 - Pasos y tiempos de cada operación
 - Variables de entorno del dispositivo
+
+---
+
+## Solución de Problemas
+
+### Reporte vacío después de ejecutar tests
+
+Si el reporte de Allure se genera vacío:
+
+1. **Verificar que los resultados se extraen del dispositivo:**
+   ```bash
+   adb shell ls -la /sdcard/googletest/test_outputfiles/allure-results/
+   ```
+
+2. **Usar el script automatizado** que limpia directorios automáticamente:
+   ```powershell
+   .\run_tests_and_report.ps1
+   ```
+
+3. **Limpiar manualmente si hay corrupción:**
+   ```powershell
+   Remove-Item -Recurse -Force allure-results,allure-report
+   ```
+
+### Resultados no se generan en el dispositivo
+
+- Verificar que el dispositivo/emulador esté conectado: `adb devices`
+- Asegurarse que los tests se ejecutan completamente
+- Revisar que `AllurePatrolJUnitRunner` esté correctamente configurado
+
+### Acumulación de resultados entre ejecuciones
+
+Los resultados de Allure se acumulan en el dispositivo. Para una corrida limpia:
+
+```bash
+# Borrar resultados del dispositivo antes de ejecutar tests
+adb shell rm -rf /sdcard/googletest/test_outputfiles/allure-results
+```
