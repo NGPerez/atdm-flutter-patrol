@@ -66,29 +66,61 @@ class _BottomState extends State<Bottom> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(Icons.home,
-                    color: HomeStyles.iconColor, size: HomeStyles.iconSize),
+              Semantics(
+                identifier: 'home_button',
+                label: 'home_button',
+                button: true,
+                child: IconButton(
+                  onPressed: () {},
+                  icon: const Icon(
+                    Icons.home,
+                    color: HomeStyles.iconColor,
+                    size: HomeStyles.iconSize,
+                  ),
+                ),
               ),
-              IconButton(
-                onPressed: () =>
-                    setState(() => _showSearchBar = !_showSearchBar),
-                icon: const Icon(Icons.search,
-                    color: HomeStyles.iconColor, size: HomeStyles.iconSize),
+              Semantics(
+                identifier: 'search_button',
+                label: 'search_button',
+                button: true,
+                child: IconButton(
+                  onPressed: () =>
+                      setState(() => _showSearchBar = !_showSearchBar),
+                  icon: const Icon(
+                    Icons.search,
+                    color: HomeStyles.iconColor,
+                    size: HomeStyles.iconSize,
+                  ),
+                ),
               ),
-              IconButton(
-                onPressed: widget.onAccountPressed,
-                icon: const Icon(Icons.account_circle_outlined,
-                    color: HomeStyles.iconColor, size: HomeStyles.iconSize),
+              Semantics(
+                identifier: 'account_button',
+                label: 'account_button',
+                button: true,
+                child: IconButton(
+                  onPressed: widget.onAccountPressed,
+                  icon: const Icon(
+                    Icons.account_circle_outlined,
+                    color: HomeStyles.iconColor,
+                    size: HomeStyles.iconSize,
+                  ),
+                ),
               ),
-              IconButton(
-                onPressed: widget.onCartPressed,
-                icon: const Icon(Icons.shopping_cart_outlined,
-                    color: HomeStyles.iconColor, size: HomeStyles.iconSize),
+              Semantics(
+                identifier: 'cart_button',
+                label: 'cart_button',
+                button: true,
+                child: IconButton(
+                  onPressed: widget.onCartPressed,
+                  icon: const Icon(
+                    Icons.shopping_cart_outlined,
+                    color: HomeStyles.iconColor,
+                    size: HomeStyles.iconSize,
+                  ),
+                ),
               ),
             ],
-          ),
+          )
         ],
       ),
     );

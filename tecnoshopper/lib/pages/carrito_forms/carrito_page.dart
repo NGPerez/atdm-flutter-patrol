@@ -85,11 +85,16 @@ class CarritoPage extends StatelessWidget {
                         ),
                         Column(
                           children: [
-                            IconButton(
-                              icon: const Icon(Icons.add, color: Colors.green),
-                              onPressed: () {
-                                carrito.incrementarCantidad(producto.index);
-                              },
+                            Semantics(
+                              identifier: 'increase_quantity_button',
+                              label: 'increase_quantity_button',
+                              button: true,
+                              child: IconButton(
+                                icon: const Icon(Icons.add, color: Colors.green),
+                                onPressed: () {
+                                  carrito.incrementarCantidad(producto.index);
+                                },
+                              ),
                             ),
                             Text(
                               '${producto.cantidad}',
@@ -98,19 +103,29 @@ class CarritoPage extends StatelessWidget {
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            IconButton(
-                              icon: const Icon(Icons.remove, color: Colors.red),
-                              onPressed: () {
-                                carrito.disminuirCantidad(producto.index);
-                              },
+                            Semantics(
+                              identifier: 'decrease_quantity_button',
+                              label: 'decrease_quantity_button',
+                              button: true,
+                              child: IconButton(
+                                icon: const Icon(Icons.remove, color: Colors.red),
+                                onPressed: () {
+                                  carrito.disminuirCantidad(producto.index);
+                                },
+                              ),
                             ),
                           ],
                         ),
-                        IconButton(
-                          icon: const Icon(Icons.delete, color: Colors.red),
-                          onPressed: () {
-                            carrito.removerProducto(producto.index);
-                          },
+                        Semantics(
+                          identifier: 'remove_item_button',
+                          label: 'remove_item_button',
+                          button: true,
+                          child: IconButton(
+                            icon: const Icon(Icons.delete, color: Colors.red),
+                            onPressed: () {
+                              carrito.removerProducto(producto.index);
+                            },
+                          ),
                         ),
                       ],
                     ),
@@ -134,17 +149,22 @@ class CarritoPage extends StatelessWidget {
                     color: Color(0xFF011B55),
                   ),
                 ),
-                ElevatedButton(
-                  onPressed:
-                      isCarritoVacio ? null : () => _handleSubmit(context),
-                  style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
-                    backgroundColor:
+                Semantics(
+                  identifier: 'checkout_button',
+                  label: 'checkout_button',
+                  button: true,
+                  child: ElevatedButton(
+                    onPressed:
+                        isCarritoVacio ? null : () => _handleSubmit(context),
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+                      backgroundColor:
                         isCarritoVacio ? Colors.grey : const Color(0xFF011B55),
-                    foregroundColor: Colors.white,
-                    textStyle: const TextStyle(fontSize: 18),
+                      foregroundColor: Colors.white,
+                      textStyle: const TextStyle(fontSize: 18),
+                    ),
+                    child: const Text('Finalizar Compra'),
                   ),
-                  child: const Text('Finalizar Compra'),
                 ),
               ],
             ),

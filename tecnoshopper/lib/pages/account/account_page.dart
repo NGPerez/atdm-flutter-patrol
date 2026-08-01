@@ -75,9 +75,14 @@ class _AccountPageState extends State<AccountPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Datos de Cuenta'),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: widget.onClose,
+        leading: Semantics(
+        identifier: 'back_button',
+        label: 'back_button',
+        button: true,
+          child: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: widget.onClose,
+          ),
         ),
       ),
       body: Center(

@@ -30,10 +30,15 @@ class _ProductPageTemplate extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          onPressed: () => _handleBack(context),
-          icon: const Icon(Icons.arrow_back_ios),
-          color: HomeStyles.appBarIconColor,
+        leading: Semantics(
+          identifier: 'back_button',
+          label: 'back_button',
+          button: true,
+          child: IconButton(
+            onPressed: () => _handleBack(context),
+            icon: const Icon(Icons.arrow_back_ios),
+            color: HomeStyles.appBarIconColor,
+          ),
         ),
         toolbarHeight: 100,
         centerTitle: true,
